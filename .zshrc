@@ -1,6 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-
+export PATH=/usr/local/smlnj/bin:"$PATH" 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -117,9 +117,24 @@ alias gp="git pull"
 alias gpo="git push --set-upstream origin"
 alias gps="git push"
 
+# languages
+alias python="python3"
+
 # INSTALL defined
 . "$HOME/.asdf/asdf.sh"
 . "$HOME/.asdf/completions/asdf.bash"
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# opam configuration
+[[ ! -r /Users/nana/.opam/opam-init/init.zsh ]] || source /Users/nana/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+# >>> juliaup initialize >>>
+
+# !! Contents within this block are managed by juliaup !!
+
+path=('/Users/nana/.juliaup/bin' $path)
+export PATH
+
+# <<< juliaup initialize <<<

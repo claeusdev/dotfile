@@ -5,7 +5,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-vim.o.background = "light"
+vim.o.background = "dark"
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    https://github.com/folke/lazy.nvim
@@ -31,6 +31,27 @@ vim.opt.rtp:prepend(lazypath)
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
+  {
+    'nvim-java/nvim-java',
+    dependencies = {
+      'nvim-java/lua-async-await',
+      'nvim-java/nvim-java-core',
+      'nvim-java/nvim-java-test',
+      'nvim-java/nvim-java-dap',
+      'MunifTanjim/nui.nvim',
+      'neovim/nvim-lspconfig',
+      'mfussenegger/nvim-dap',
+      {
+        'williamboman/mason.nvim',
+        opts = {
+          registries = {
+            'github:nvim-java/mason-registry',
+            'github:mason-org/mason-registry',
+          },
+        },
+      }
+    },
+  },
   {
     'windwp/nvim-autopairs',
     event = "InsertEnter",
@@ -91,6 +112,8 @@ require('lazy').setup({
       'rafamadriz/friendly-snippets',
     },
   },
+
+  'fatih/vim-go',
 
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim',         opts = {} },
@@ -207,7 +230,7 @@ require('lazy').setup({
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 
-vim.cmd.colorscheme("modus")
+vim.cmd.colorscheme("modus_vivendi")
 -- Set highlight on search
 vim.o.hlsearch = false
 
@@ -267,7 +290,22 @@ vim.keymap.set("n", "<leader>sm", ":MaximizerToggle<CR>") -- toggle split window
 -- nvim-tree
 vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>") -- toggle file explorer
 
--- [[ Highlight on yank ]]
+require('java').setup()
+require('lspconfig').jdtls.setup({
+  settings = {
+    java = {
+      configuration = {
+        runtimes = {
+          {
+            name = "JavaSE-21",
+            path = "/opt/jdk-21",
+            default = true,
+          }
+        }
+      }
+    }
+  }
+}) -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
